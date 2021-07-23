@@ -1,0 +1,70 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A cool thing made with Glitch" />
+
+    <title>Welcome to SpaceX!</title>
+
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/script.js" defer></script></head
+  ><!DOCTYPE html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+    <script src="script.js"></script>
+
+    <h1>Space X API - Most recent flight data:</h1>
+    <br />
+    <p id="geoLocation">Please allow app to access your location- Your Current location is:</p>
+
+    <br />
+    <p>
+      <button id="getTitle">
+        Get Most recent Launch info
+      </button>
+      <button id="getPhoto">
+        Get Image from most recent launch
+      </button>
+    </p>
+
+    <div class="title"></div>
+    <div class="photo">
+      Please Click on the Button to get today's image from a SpaceX API
+    </div>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <div class="message">This text will Be replaced By the API content</div>
+    <br /><br />
+    <div>
+      This is a seperate thing - a silly(external) API that recieves a POST of
+      your name, then sends it back to this app's script(who called the API)
+      which updates the HTML with data from API-which is the name you sent
+      it...just another assignment completed :)
+    </div>
+    <p>
+      <label> Name:</label>
+      <textarea id="name" placeholder="Please enter your name"></textarea>
+      <button id="sendMessage">Send Post to API</button>
+    </p>
+  </body>
+</html>
