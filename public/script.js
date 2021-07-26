@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
   //     })
 
   document.getElementsByClassName("photo")[0].textContent =
-    "The button will create an XMLHttpRequestuest to the free NASA API to get today's AstroPhotograph-enjoy!";
+    "The button will create an XMLHttpRequestuest to the SpaceX API to get details about the most recent launch, and an AstroPhotograph of the spaceship-enjoy!";
 
   document.getElementById("getPhoto").onclick = function() {
     const req = new XMLHttpRequest();
@@ -60,9 +60,10 @@ document.addEventListener("DOMContentLoaded", function() {
     req.send();
     req.onload = function() {
       const json = JSON.parse(req.responseText);
-      document.getElementsByClassName("photo")[0].innerHTML = (
-        "<IMG class='image' src="+JSON.stringify(json.links.flickr.original[0])+">"
-      );
+      document.getElementsByClassName("photo")[0].innerHTML =
+        "<IMG class='image' src=" +
+        JSON.stringify(json.links.flickr.original[0]) +
+        ">";
     };
 
     //document.getElementsByClassName('message')[0].textContent="Here is the message";

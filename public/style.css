@@ -3,7 +3,6 @@
 * {
   box-sizing: border-box;
   text-align: center;
-
 }
 
 body {
@@ -12,7 +11,10 @@ body {
   line-height: 1.5em;
   color: white;
 
-  background: url( https://res.cloudinary.com/pollie/image/upload/v1625248257/stars_background_2_q8ajn8.jpg), url(https://res.cloudinary.com/pollie/image/upload/v1625247509/stars_background_image_x2sujn.jpg);
+  background: url(
+      https://res.cloudinary.com/pollie/image/upload/v1625248257/stars_background_2_q8ajn8.jpg
+    ),
+    url(https://res.cloudinary.com/pollie/image/upload/v1625247509/stars_background_image_x2sujn.jpg);
   background-size: 100% 100%;
 }
 
@@ -61,6 +63,16 @@ footer {
   border-top: 1px solid lightgrey;
 }
 
+.background {
+  background: white;
+  border-radius: 5px;
+  display: inlineBlock;
+}
+
 .image {
-  width=100%;
+  width: 100%;
+}
+
+.margin {
+  margin: auto;
 }
