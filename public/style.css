@@ -64,9 +64,9 @@ footer {
 }
 
 .background {
-  background: white;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
-  display: inlineBlock;
+  display: block;
 }
 
 .image {
