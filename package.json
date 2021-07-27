@@ -4,13 +4,14 @@
   "//3": "updating this file will download and update your packages",
   "name": "hello-express",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "description": "A simple Node app built on Express, hits SpaceX API to get most recent flight data.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "bootstrap": "^5.0.2"
   },
   "engines": {
     "node": "12.x"

@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementsByClassName("title")[0].textContent =
     "Please click on either button above:";
+  
   document.getElementById("getTitle").onclick = function() {
     const req = new XMLHttpRequest();
     req.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
