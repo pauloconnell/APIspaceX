@@ -71,15 +71,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementsByClassName("title")[0].textContent =
     "Please click on either button above:";
-  
+
   document.getElementById("getTitle").onclick = function() {
+    document.getElementsByClassName("title")[0].innerHTML =
+      "<div> Loading up your details</div>";
     const req = new XMLHttpRequest();
     req.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
     req.send();
     req.onload = function() {
       const json2 = JSON.parse(req.responseText);
       document.getElementsByClassName("title")[0].innerHTML =
-        "<h3>" + JSON.stringify(json2.details) + "</h3>";
+        "<div>" +
+        JSON.stringify(json2.name) +
+        "<h3>" +
+        JSON.stringify(json2.details) +
+        "</h3>" +
+        "</div>";
     };
 
     //document.getElementsByClassName('message')[0].textContent="Here is the message";
