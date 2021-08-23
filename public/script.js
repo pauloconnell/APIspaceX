@@ -1,34 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      document.getElementById("geoLocation").innerHTML =
-        "latitude: " +
-        position.coords.latitude +
-        "<br>longitude: " +
-        position.coords.longitude;
-    });
-  }
-  document.getElementById("sendMessage").onclick = function() {
-    const userName = document.getElementById("name").value;
-    const url = "https://jsonplaceholder.typicode.com/posts";
-    // pre set up url which accepst posts and sends back response object 'xhr.response'
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 201) {
-        // 4=completed, 201=success
-        const serverResponse = JSON.parse(xhr.response);
-        document.getElementsByClassName("message")[0].textContent =
-          serverResponse.userName + serverResponse.suffix;
-      }
-    };
-    const body = JSON.stringify({
-      userName: userName,
-      suffix: " loves Rockets!"
-    });
-    xhr.send(body);
-  };
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     document.getElementById("geoLocation").innerHTML =
+  //       "latitude: " +
+  //       position.coords.latitude +
+  //       "<br>longitude: " +
+  //       position.coords.longitude;
+  //   });
+  // }
 
   //fetch called on page load hit api too many times-try later
   // fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=fhaz&api_key=DEMO_KEY')
@@ -51,44 +30,61 @@ document.addEventListener("DOMContentLoaded", function() {
   //         document.getElementById('message').innerHTML ="<H1>Rover on Mars</H1>"+html+"<IMG src="+JSON.stringify(data.photos[0].img_src)+"alt='photo of rover on mars'>";
   //     })
 
-  document.getElementsByClassName("photo")[0].textContent =
-    "The button will create an XMLHttpRequestuest to the SpaceX API to get details about the most recent launch, and an AstroPhotograph of the spaceship-enjoy!";
+  var memory = false;
+  var json = {};
 
-  document.getElementById("getPhoto").onclick = function() {
-    const req = new XMLHttpRequest();
-    req.open("GET", " https://api.spacexdata.com/v4/launches/latest", true);
-    req.send();
-    req.onload = function() {
-      const json = JSON.parse(req.responseText);
-      document.getElementsByClassName("photo")[0].innerHTML =
-        "<IMG class='image' src=" +
-        JSON.stringify(json.links.flickr.original[0]) +
-        ">";
-    };
+  document.getElementById("getPhoto").addEventListener("click", function() {
+    if (!memory) {
+      const req = new XMLHttpRequest();
+      console.log("about to get data from api");
+      req.open("GET", " https://api.spacexdata.com/v4/launches/latest", true);
+      req.send();
+      req.onload = function() {
+        json = JSON.parse(req.responseText);
+        console.log("got data from api ");
+        memory = true;
+        const image = document.createElement("img");
+        image.src = json.links.flickr.original[0];
+        image.style.width = "80%";
 
-    //document.getElementsByClassName('message')[0].textContent="Here is the message";
-  };
+        document.querySelector(".photo").appendChild(image);
+        //        document.getElementsByClassName("photo")[0].innerHTML = (
+        //          <IMG
+        //            class="image"
+        //            src={JSON.stringify(json.links.flickr.original[0])}
+        //          ></IMG>
+        //       );
+        //<iframe width='99%' src='https://www.youtube.com/embed/"+JSON.stringify(json.links.youtube_id)+"' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>
+      };
+    } else {
+      const image = document.createElement("img");
+      image.src = json.links.flickr.original[0];
+      image.style.width = "80%";
 
-  document.getElementsByClassName("title")[0].textContent =
-    "Please click on either button above:";
-
-  document.getElementById("getTitle").onclick = function() {
-    document.getElementsByClassName("title")[0].innerHTML =
-      "<div> Loading up your details</div>";
-    const req = new XMLHttpRequest();
-    req.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
-    req.send();
-    req.onload = function() {
-      const json2 = JSON.parse(req.responseText);
-      document.getElementsByClassName("title")[0].innerHTML =
-        "<div>" +
-        JSON.stringify(json2.name) +
-        "<h3>" +
-        JSON.stringify(json2.details) +
-        "</h3>" +
-        "</div>";
-    };
+      document.querySelector(".photo").appendChild(image);
+    }
 
     //document.getElementsByClassName('message')[0].textContent="Here is the message";
-  };
+  });
+  document.getElementById("getTitle").addEventListener("click", function() {
+    if (!memory) {
+      const req = new XMLHttpRequest();
+      req.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
+      req.send();
+      req.onload = function() {
+        json = JSON.parse(req.responseText);
+        memory = true;
+        //        console.log("response recieved ", json.name);
+        const titleDiv = document.createElement("div");
+        titleDiv.innerHTML = json.name + "<br/>" + json.details;
+        titleDiv.style.margin = "auto";
+        titleDiv.style.lineHeight = "2.5";
+        document.querySelector(".title").appendChild(titleDiv);
+      };
+    } else {
+      const titleDiv = document.createElement("div");
+      titleDiv.innerHTML = json.details;
+      document.querySelector(".title").appendChild(titleDiv);
+    }
+  });
 });

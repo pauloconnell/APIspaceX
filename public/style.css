@@ -68,7 +68,13 @@ footer {
   border-radius: 5px;
   display: block;
 }
-
+.photo{
+  background: black;
+}
+.title {
+  text-align:right;
+  margin:auto;
+}
 .image {
   width: 100%;
 }
