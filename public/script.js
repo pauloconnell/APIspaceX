@@ -110,39 +110,53 @@ document.addEventListener("DOMContentLoaded", function() {
           JSON.stringify(json.links.youtube_id) + videoId
         );
         let videoDiv = document.createElement("div");
-        videoDiv.classList = "videoClass";
-        videoDiv.innerTHML =
-          `<iframe
-      width="80%"
-      height="500"
-      src="https://www.youtube.com/embed/` +
-          { videoId } +
-          `"
-      title="Space X most recent launch"
-      frameborder="0"
-      allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>`;
+        videoDiv.classList.add = "videoClass";
+        videoDiv.innerHTML = `<iframe width="80%" height="500" src="https://www.youtube.com/embed/{videoId} title="Space X most recent launch" frameborder="0" gesture="media" allowfullscreen></iframe>`;
 
         videoDiv.style.margin = "auto";
         videoDiv.style.lineHeight = "2.5";
-        document.querySelector(".title").appendChild(videoDiv);
+        document.querySelector("#latestVideo").appendChild(videoDiv);
       };
     } else {
+      //       var tag = document.createElement('script');
+
+      //       tag.src = "https://www.youtube.com/iframe_api";
+      //       var firstScriptTag = document.getElementsByTagName('script')[0];
+      //       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      //       // 3. This function creates an <iframe> (and YouTube player)
+      //       //    after the API code downloads.
+      //       var player;
+      //       function onYouTubeIframeAPIReady() {
+      //         player = new YT.Player('player', {
+      //           height: '390',
+      //           width: '640',
+      //           videoId: 'M7lc1UVf-VE',
+      //           playerVars: {
+      //             'playsinline': 1
+      //           },
+      //           events: {
+      //             'onReady': onPlayerReady,
+      //             'onStateChange': onPlayerStateChange
+      //           }
+      //         });
+      //       }
+
       let videoId = json.links.youtube_id;
 
-      let videoDiv = document.getElementsByClass("videoClass");
+      let videoDiv = document.getElementById("video");
+      console.log("video Class is ", videoDiv);
       videoDiv.innerHTML = `<iframe
       width="80%"
       height="500"
       src="https://www.youtube.com/embed/{videoId}"
       title="YouTube video player"
       frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write;"
+      gesture="media" 
       allowfullscreen
     ></iframe>`;
 
-      document.querySelector(".video").appendChild(videoDiv);
+      document.querySelector("#latestVideo").appendChild(videoDiv);
     }
   });
 });
