@@ -67,13 +67,15 @@ footer {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
   display: block;
+  max-width: 750px;
+  margin: auto;
 }
-.photo{
+.photo {
   background: black;
 }
 .title {
-  text-align:right;
-  margin:auto;
+  text-align: right;
+  margin: auto;
 }
 .image {
   width: 100%;
@@ -81,4 +83,8 @@ footer {
 
 .margin {
   margin: auto;
+}
+
+#geoLocation {
+  display:none;
 }
