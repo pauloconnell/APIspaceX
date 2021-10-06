@@ -41,13 +41,21 @@ document.addEventListener("DOMContentLoaded", function() {
       req.send();
       req.onload = function() {
         json = JSON.parse(req.responseText);
-        console.log("got data from api ");
-        memory = true;
-        const image = document.createElement("img");
-        image.src = json.links.flickr.original[0];
-        image.style.width = "80%";
+        console.log(
+          "got data from api ",
+          JSON.stringify(json.links.flickr.original)
+        );
+        if (json.links.flickr.original.length == 0) {
+          document.querySelector(".photo").innerText =
+            "Sorry, Space X has provided no Photos from this launch.";
+        } else {
+          memory = true;
+          const image = document.createElement("img");
+          image.src = json.links.flickr.original[0];
+          image.style.width = "80%";
 
-        document.querySelector(".photo").appendChild(image);
+          document.querySelector(".photo").appendChild(image);
+        }
         //        document.getElementsByClassName("photo")[0].innerHTML = (
         //          <IMG
         //            class="image"
@@ -85,6 +93,70 @@ document.addEventListener("DOMContentLoaded", function() {
       const titleDiv = document.createElement("div");
       titleDiv.innerHTML = json.details;
       document.querySelector(".title").appendChild(titleDiv);
+    }
+  });
+
+  document.getElementById("getVideo").addEventListener("click", function() {
+    if (!memory) {
+      const req = new XMLHttpRequest();
+      req.open("GET", "https://api.spacexdata.com/v4/launches/latest", true);
+      req.send();
+      req.onload = function() {
+        json = JSON.parse(req.responseText);
+        memory = true;
+        var videoId = json.links.youtube_id;
+        console.log(
+          "response recieved video id is ",
+          JSON.stringify(json.links.youtube_id) + videoId
+        );
+        let videoDiv = document.createElement("div");
+        videoDiv.classList.add = "videoClass";
+        videoDiv.innerHTML = `<iframe width="80%" height="500" src="https://www.youtube.com/embed/{videoId} title="Space X most recent launch" frameborder="0" gesture="media" allowfullscreen></iframe>`;
+
+        videoDiv.style.margin = "auto";
+        videoDiv.style.lineHeight = "2.5";
+        document.querySelector("#latestVideo").appendChild(videoDiv);
+      };
+    } else {
+      //       var tag = document.createElement('script');
+
+      //       tag.src = "https://www.youtube.com/iframe_api";
+      //       var firstScriptTag = document.getElementsByTagName('script')[0];
+      //       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      //       // 3. This function creates an <iframe> (and YouTube player)
+      //       //    after the API code downloads.
+      //       var player;
+      //       function onYouTubeIframeAPIReady() {
+      //         player = new YT.Player('player', {
+      //           height: '390',
+      //           width: '640',
+      //           videoId: 'M7lc1UVf-VE',
+      //           playerVars: {
+      //             'playsinline': 1
+      //           },
+      //           events: {
+      //             'onReady': onPlayerReady,
+      //             'onStateChange': onPlayerStateChange
+      //           }
+      //         });
+      //       }
+
+      let videoId = json.links.youtube_id;
+
+      let videoDiv = document.getElementById("video");
+      console.log("video Class is ", videoDiv);
+      videoDiv.innerHTML = `<iframe
+      width="80%"
+      height="500"
+      src="https://www.youtube.com/embed/{videoId}"
+      title="YouTube video player"
+      frameborder="0"
+      gesture="media" 
+      allowfullscreen
+    ></iframe>`;
+
+      document.querySelector("#latestVideo").appendChild(videoDiv);
     }
   });
 });
